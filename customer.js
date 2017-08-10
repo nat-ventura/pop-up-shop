@@ -1,14 +1,7 @@
-require('dotenv').config();
-const pg = require('pg-promise')();
-const dbConfig = {
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    database: process.env.DB_NAME
-};
+const db = require('./db');
 
 class Customer {
     constructor(name, email, addr, password) {
-        this.db = pg(dbConfig);
         this.name = name;
         this.email = email;
         this.address = addr;
@@ -19,7 +12,7 @@ class Customer {
         // type out a query, see if it works,
         // then copy and paste
         // OR.....
-        return this.db.query(`
+        return db.query(`
         insert into customers
         (name, email, address, password)
         values
@@ -28,13 +21,21 @@ class Customer {
         // line 26 allows you to inject javascript -- it's string interpolation
     }
     get(id) {
-        return this.db.one(`
-        select * from customers
+        return db.one(`
+        select name, email, address
+            from customers
             where customer_id=${id};
         `).then((result) => {
-            this.name = result.name;
-            this.email = result.email;
-            this.address = result.address;
+
+            let c = new Customer();
+            c.name = result.name;
+            c.email = result.email;
+            c.address = result.address;
+            return c;
+
+            // this.name = result.name;
+            // this.email = result.email;
+            // this.address = result.address;
             // here we are mutating!
             // feels icky to manipulate customer instance
             // also we're using the keyword THIS
