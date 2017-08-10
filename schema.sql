@@ -14,3 +14,9 @@ create table items (
     price numeric not null,
     quantity numeric not null
 );
+
+create table orders (
+    order_id serial primary key,
+    item_id integer references items,
+    customer_id integer references customers
+);
