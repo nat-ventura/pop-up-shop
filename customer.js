@@ -8,7 +8,7 @@ const dbConfig = {
 const db = pg();
 
 class Customer {
-    constructor() {
+    constructor(name, email, addr, password) {
 
     }
     save() {
