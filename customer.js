@@ -27,6 +27,12 @@ class Customer {
         `);
         // line 26 allows you to inject javascript -- it's string interpolation
     }
+    get(id) {
+        return this.db.one(`
+        select * from customers
+            where customer_id=${id};
+        `);
+    }
 }
 
 module.exports = Customer;
