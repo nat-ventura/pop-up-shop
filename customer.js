@@ -31,7 +31,19 @@ class Customer {
         return this.db.one(`
         select * from customers
             where customer_id=${id};
-        `);
+        `).then((result) => {
+            this.name = result.name;
+            this.email = result.email;
+            this.address = result.address;
+            // here we are mutating!
+            // feels icky to manipulate customer instance
+            // also we're using the keyword THIS
+            // will it be the THIS that we expect with these nested callbacks?
+            // instead of console logging the result, let's console log myCustomer.name in test-customer
+            return result;
+            // "whoever is coming after me, you must pass the data on to them!"
+            // that is what we're doing with this return
+        })
     }
 }
 

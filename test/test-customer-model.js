@@ -31,7 +31,8 @@ describe('Customers', () => {
             myCustomer
                 .get(1)
                 .then((result) => {
-                    console.log('hey you got meee ;)', result);
+                    // console.log('hey you got meee ;)', result);
+                    console.log(myCustomer.name);
                     done();
                 });
         });
