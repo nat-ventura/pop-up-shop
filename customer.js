@@ -5,7 +5,7 @@ const dbConfig = {
     username: process.env.DB_USER,
     database: process.env.DB_NAME
 };
-const db = pg();
+const db = pg(dbConfig);
 
 class Customer {
     constructor(name, email, addr, password) {
